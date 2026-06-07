@@ -1,0 +1,13 @@
+[package]
+name = "young-tableau-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Young tableaux operations: Robinson-Schensted insertion, bumping, hook length formula, and Schensted correspondence"
+license = "MIT OR Apache-2.0"
+keywords = ["young-tableau", "combinatorics", "robinson-schensted", "partition", "representation-theory"]
+categories = ["algorithms", "mathematics", "data-structures"]
+repository = "https://github.com/SuperInstance/young-tableau-rs"
+authors = ["SuperInstance"]
+readme = "README.md"
+
+[dependencies]
