@@ -296,4 +296,22 @@ mod tests {
         let mat = vec![vec![1.0, 2.0], vec![3.0, 4.0]];
         assert!((determinant(&mat) - (-2.0)).abs() < 1e-10);
     }
+
+    #[test]
+    fn test_schur_at_ones_single_row() {
+        // s_{(3)}(1,1,1) = h_3(1,1,1) = number of ways to write 3 as ordered sum of 3 vars
+        // = 10 (stars and bars)
+        assert_eq!(schur_at_ones(&[3], 3), 10);
+    }
+
+    #[test]
+    fn test_schur_homogeneous_consistency() {
+        // For a single-row shape (m), s_{(m)} = h_m
+        for m in 1..=4 {
+            let xs = vec![1.0, 2.0];
+            let s = schur_polynomial(&[m], &xs);
+            let h = complete_homogeneous(m, &xs);
+            assert!((s - h).abs() < 1e-8, "Mismatch for m={}: {} vs {}", m, s, h);
+        }
+    }
 }
