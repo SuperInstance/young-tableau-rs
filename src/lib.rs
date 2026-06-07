@@ -14,6 +14,7 @@
 pub mod correspondence;
 pub mod hook;
 pub mod insertion;
+pub mod schur;
 pub mod standard;
 pub mod tableau;
 

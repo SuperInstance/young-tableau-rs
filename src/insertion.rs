@@ -21,8 +21,6 @@ pub fn row_insert(tableau: &YoungTableau, x: u32) -> InsertionResult {
     let mut rows = tableau.rows.clone();
     let mut path = vec![];
     let mut val = x;
-    let mut new_cell = (0, 0);
-
     for row_idx in 0..rows.len() {
         let row = &mut rows[row_idx];
         // Find leftmost element strictly greater than val
@@ -39,7 +37,7 @@ pub fn row_insert(tableau: &YoungTableau, x: u32) -> InsertionResult {
                 let col = row.len();
                 row.push(val);
                 path.push((row_idx, col));
-                new_cell = (row_idx, col);
+                let new_cell = (row_idx, col);
                 return InsertionResult {
                     tableau: YoungTableau::from_rows(rows),
                     new_cell,
@@ -50,10 +48,9 @@ pub fn row_insert(tableau: &YoungTableau, x: u32) -> InsertionResult {
     }
 
     // If we exhausted all rows, start a new row
-    let _col = 0;
     rows.push(vec![val]);
     path.push((rows.len() - 1, 0));
-    new_cell = (rows.len() - 1, 0);
+    let new_cell = (rows.len() - 1, 0);
 
     InsertionResult {
         tableau: YoungTableau::from_rows(rows),
@@ -191,7 +188,7 @@ mod tests {
     #[test]
     fn test_reverse_insert() {
         let t = insertion_tableau(&[3, 1, 4]);
-        let (rev, val) = reverse_insert(&t, t.num_rows() - 1, t.rows.last().unwrap().len() - 1);
+        let (rev, _val) = reverse_insert(&t, t.num_rows() - 1, t.rows.last().unwrap().len() - 1);
         assert_eq!(rev.size(), 2);
     }
 

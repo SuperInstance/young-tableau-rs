@@ -44,13 +44,11 @@ pub fn rsk_inverse(pair: &RSKPair) -> Vec<u32> {
             q_values.push((v, r, c));
         }
     }
-    q_values.sort_by(|a, b| b.0.cmp(&a.0)); // Descending order
+    q_values.sort_by_key(|b| std::cmp::Reverse(b.0)); // Descending order
 
-    for &(val, _, _) in &q_values {
+    for &(val, r, c) in &q_values {
         let idx = (val - 1) as usize;
-        // Find a corner cell of P
-        let (cr, cc) = find_corner(&p);
-        let (new_p, bumped) = crate::insertion::reverse_insert(&p, cr, cc);
+        let (new_p, bumped) = crate::insertion::reverse_insert(&p, r, c);
         result[idx] = bumped;
         p = new_p;
     }
@@ -59,6 +57,7 @@ pub fn rsk_inverse(pair: &RSKPair) -> Vec<u32> {
 }
 
 /// Find a corner cell (maximal in both coordinates) of the tableau.
+#[cfg(test)]
 fn find_corner(tableau: &YoungTableau) -> (usize, usize) {
     let last_row = tableau.num_rows() - 1;
     let last_col = tableau.rows[last_row].len() - 1;

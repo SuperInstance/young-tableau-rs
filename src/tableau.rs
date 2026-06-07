@@ -180,8 +180,8 @@ impl Partition {
         let max_val = self.0[0];
         let mut conj = vec![0usize; max_val];
         for &p in &self.0 {
-            for j in 0..p {
-                conj[j] += 1;
+            for entry in conj.iter_mut().take(p) {
+                *entry += 1;
             }
         }
         Partition(conj)
